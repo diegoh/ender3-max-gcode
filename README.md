@@ -64,7 +64,6 @@ M211 S1
 #### 7 Save and Reload the Changes
 
 ```gcode
-; Save changes
 M500 ; Store Settings
 M501 ; Reload Settings
 M503 ; Read Settings
