@@ -49,19 +49,19 @@ M211 S0
 Lower the Z-axis until it is at the desired position using printer's interface or a tool like OctoPrint or Pronterface and a piece of paper.
 Take note of the `Z-value` (Usually negative).
 
-#### 5. Set the Z-offset using the `Z-value` noted above `M851 Z<offset>
+#### 7. Set the Z-offset using the `Z-value` noted above `M851 Z<offset>
 
 ```gcode
 M851 Z-2 ; NOTE -2 is an example
 ```
 
-#### 6. Enable Z-axis safety measures
+#### 8. Enable Z-axis safety measures
 
 ```gcode
 M211 S1
 ```
 
-#### 7 Save and Reload the Changes
+#### 9. Save and Reload the Changes
 
 ```gcode
 M500 ; Store Settings
