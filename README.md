@@ -46,7 +46,7 @@ M211 S0
 
 #### 6. Position Z-axis to the desired location
 
-Lower the Z-axis until it is at the desired position using printer's interface or a tool like OctoPrint or Pronterface and a piece of paper.
+Lower the Z-axis until it is at the desired position using printer's interface or a tool like OctoPrint or Pronterface.
 Take note of the `Z-value` (Usually negative).
 
 #### 5. Set the Z-offset using the `Z-value` noted above `M851 Z<offset>
@@ -64,7 +64,6 @@ M211 S1
 #### 7 Save and Reload the Changes
 
 ```gcode
-; Save changes
 M500 ; Store Settings
 M501 ; Reload Settings
 M503 ; Read Settings
