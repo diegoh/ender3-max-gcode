@@ -1,6 +1,6 @@
 # Config for Ender 3 Max
 
-Includes marlin firmware config, instructions to set the correct z-offset for the BLTouch probe, and Cura start/end commands.
+Personal notes about marlin firmware config, instructions to set the correct z-offset for the BLTouch probe, and Cura start/end commands.
 
 ## Firmware
 
@@ -92,7 +92,7 @@ M211 S0 ; Disable Z-axis safety measures to allow negative values
 ; Lower the Z-axis until it is at the desired position using printer's interface or a tool like OctoPrint or Pronterface.
 ; Take note of the `Z-value` (Usually negative).
 
-M851 Z-3 ; -3 is just an example ; Set the Z-offset using the `Z-value` noted above `M851 Z<offset>
+M851 Z-2 ; -2 is just an example ; Set the Z-offset using the `Z-value` noted above `M851 Z<offset>
 M211 S1 ; Enable Z-axis safety measures
 
 M500 ; Store Settings
@@ -100,7 +100,7 @@ M501 ; Reload Settings
 ; M503 ; Read Settings
 ```
 
-NOTE on bed-levelling. Homing will disable bed-levelling unless RESTORE_LEVELING_AFTER_G28 is set in `Configuration.h`. To do this manually `M420 S1` will re-enable it and load the last saved mesh.
+NOTE on bed-levelling. Homing will disable bed-levelling unless `RESTORE_LEVELING_AFTER_G28` is set in `Configuration.h`. To do this manually `M420 S1` will re-enable it and load the last saved mesh.
 
 ## Cura
 
