@@ -293,8 +293,8 @@
    * and/or decrease WATCH_TEMP_INCREASE. WATCH_TEMP_INCREASE should not be set
    * below 2.
    */
-#define WATCH_TEMP_PERIOD 60  // Seconds
-#define WATCH_TEMP_INCREASE 2 // Degrees Celsius
+#define WATCH_TEMP_PERIOD 120 // Seconds
+#define WATCH_TEMP_INCREASE 4 // Degrees Celsius
 #endif
 
 /**
@@ -307,7 +307,7 @@
 /**
    * As described above, except for the bed (M140/M190/M303).
    */
-#define WATCH_BED_TEMP_PERIOD 60  // Seconds
+#define WATCH_BED_TEMP_PERIOD 100 // Seconds
 #define WATCH_BED_TEMP_INCREASE 2 // Degrees Celsius
 #endif
 
@@ -1915,7 +1915,7 @@
 //#define BABYSTEP_DISPLAY_TOTAL          // Display total babysteps since last G28
 
 // ENABLE FOR BLTOUCH
-//#define BABYSTEP_ZPROBE_OFFSET          // Combine M851 Z and Babystepping
+#define BABYSTEP_ZPROBE_OFFSET // Combine M851 Z and Babystepping
 #if ENABLED(BABYSTEP_ZPROBE_OFFSET)
 //#define BABYSTEP_HOTEND_Z_OFFSET      // For multiple hotends, babystep relative Z offsets
 //#define BABYSTEP_ZPROBE_GFX_OVERLAY   // Enable graphical overlay on Z-offset editor
@@ -1942,7 +1942,7 @@
 #define LIN_ADVANCE
 #if ENABLED(LIN_ADVANCE)
 //#define EXTRA_LIN_ADVANCE_K // Enable for second linear advance constants
-#define LIN_ADVANCE_K 0.22 // Unit: mm compression per 1mm/s extruder speed
+#define LIN_ADVANCE_K 0 // Unit: mm compression per 1mm/s extruder speed
 //#define LA_DEBUG            // If enabled, this will generate debug information output over USB.
 #define EXPERIMENTAL_SCURVE // Enable this option to permit S-Curve Acceleration
 #endif
@@ -2113,7 +2113,7 @@
  * less step aliasing by calculating all motions in advance.
  * Preparing your G-code: https://github.com/colinrgodsey/step-daemon
  */
-//#define DIRECT_STEPPING
+#define DIRECT_STEPPING
 
 /**
  * G38 Probe Target
@@ -2188,18 +2188,18 @@
 // The number of linear moves that can be in the planner at once.
 // The value of BLOCK_BUFFER_SIZE must be a power of 2 (e.g., 8, 16, 32)
 #if BOTH(SDSUPPORT, DIRECT_STEPPING)
-#define BLOCK_BUFFER_SIZE 8
+#define BLOCK_BUFFER_SIZE 64
 #elif ENABLED(SDSUPPORT)
-#define BLOCK_BUFFER_SIZE 16
+#define BLOCK_BUFFER_SIZE 64
 #else
-#define BLOCK_BUFFER_SIZE 16
+#define BLOCK_BUFFER_SIZE 64
 #endif
 
 // @section serial
 
 // The ASCII buffer for serial input
 #define MAX_CMD_SIZE 96
-#define BUFSIZE 4
+#define BUFSIZE 32
 
 // Transmission to Host Buffer Size
 // To save 386 bytes of PROGMEM (and TX_BUFFER_SIZE+3 bytes of RAM) set to 0.
@@ -2208,7 +2208,7 @@
 // For debug-echo: 128 bytes for the optimal speed.
 // Other output doesn't need to be that speedy.
 // :[0, 2, 4, 8, 16, 32, 64, 128, 256]
-#define TX_BUFFER_SIZE 0
+#define TX_BUFFER_SIZE 128
 
 // Host Receive Buffer Size
 // Without XON/XOFF flow control (see SERIAL_XON_XOFF below) 32 bytes should be enough.
@@ -2246,7 +2246,7 @@
  * Currently handles M108, M112, M410, M876
  * NOTE: Not yet implemented for all platforms.
  */
-//#define EMERGENCY_PARSER
+#define EMERGENCY_PARSER
 
 /**
  * Realtime Reporting (requires EMERGENCY_PARSER)
@@ -2275,7 +2275,7 @@
 //#define NO_TIMEOUTS 1000 // Milliseconds
 
 // Some clients will have this feature soon. This could make the NO_TIMEOUTS unnecessary.
-//#define ADVANCED_OK
+#define ADVANCED_OK
 
 // Printrun may have trouble receiving long strings all at once.
 // This option inserts short delays between lines of serial output.
@@ -2447,7 +2447,7 @@
                                               //   For direct drive, the full length of the nozzle.
 //#define ADVANCED_PAUSE_CONTINUOUS_PURGE       // Purge continuously up to the purge length until interrupted.
 #define ADVANCED_PAUSE_PURGE_FEEDRATE 3 // (mm/s) Extrude feedrate (after loading). Should be slower than load feedrate.
-#define ADVANCED_PAUSE_PURGE_LENGTH 25  // (mm) Length to extrude after loading.                               \
+#define ADVANCED_PAUSE_PURGE_LENGTH 50  // (mm) Length to extrude after loading.                               \
                                         //   Set to 0 for manual extrusion.                                    \
                                         //   Filament can be extruded repeatedly from the Filament Change menu \
                                         //   until extrusion is consistent, and to purge old filament.
