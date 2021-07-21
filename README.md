@@ -13,10 +13,6 @@ Includes marlin firmware config, instructions to set the correct z-offset for th
 - Calibrate extruder E-Steps
 - Calibrate Probe Z-Offset
 
-## Z-offset calibration
-
-I came across an issue after installing BL Touch on my 3D Printer where the Z-axis would be too high. The Z-offset would simply not go low enough. These are the instructions to solve this issue and my startup settings for Cura.
-
 ## PID Tuning
 
 ### Hotend Calibration
@@ -76,9 +72,35 @@ Recv: #define DEFAULT_bedKd 511.31
 
 ```
 
-### Calibrate Bed Levelling Probe (BLTouch) Z-offset
+## Calibrate Bed Levelling Probe (BLTouch) Z-offset
 
-To set the correct Z-offset for the bed levelling probe on a Creality Ender 3 Max 3D Printer run the following commands and follow the instuctions [here](/src/bl-touch-z-offset.gcode). For this a tool like [OctoPrint](https://github.com/OctoPrint/OctoPrint) or PrintRun's [Pronterface](https://github.com/kliment/Printrun) is necessary.
+To set the correct Z-offset for the bed levelling probe on a Creality Ender 3 Max 3D Printer run the following commands and follow the instuctions below. For this a tool like [OctoPrint](https://github.com/OctoPrint/OctoPrint) or PrintRun's [Pronterface](https://github.com/kliment/Printrun) is necessary.
+
+```gcode
+G28 ; Home all axes
+M851 Z0 ; Clear Z-offset
+
+M500 ; Save Settings
+M501 ; Reload Settings
+; M503 ; Read Settings
+
+G28 Z0; Home Z-axis to 0
+
+M211 S0 ; Disable Z-axis safety measures to allow negative values
+
+; Position Z-axis to the desired location
+; Lower the Z-axis until it is at the desired position using printer's interface or a tool like OctoPrint or Pronterface.
+; Take note of the `Z-value` (Usually negative).
+
+M851 Z-3 ; -3 is just an example ; Set the Z-offset using the `Z-value` noted above `M851 Z<offset>
+M211 S1 ; Enable Z-axis safety measures
+
+M500 ; Store Settings
+M501 ; Reload Settings
+; M503 ; Read Settings
+```
+
+NOTE on bed-levelling. Homing will disable bed-levelling unless RESTORE_LEVELING_AFTER_G28 is set in `Configuration.h`. To do this manually `M420 S1` will re-enable it and load the last saved mesh.
 
 ## Cura
 
