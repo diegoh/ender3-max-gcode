@@ -549,7 +549,7 @@
  *
  * For selecting source/target use: COOLER, PROBE, BOARD, CHAMBER, BED, E0, E1, E2, E3, E4, E5, E6, E7
  */
-// TODO: Check values or E values
+
 #if TEMP_SENSOR_REDUNDANT
 #define TEMP_SENSOR_REDUNDANT_SOURCE E1   // The sensor that will provide the redundant reading.
 #define TEMP_SENSOR_REDUNDANT_TARGET E0   // The sensor that we are providing a redundant reading for.
@@ -609,27 +609,27 @@
 #define PID_AUTOTUNE_MENU // Add PID auto-tuning to the "Advanced Settings" menu. (~250 bytes of PROGMEM)
 //#define PID_PARAMS_PER_HOTEND // Uses separate PID parameters for each extruder (useful for mismatched extruders)
 // Set/get with gcode: M301 E[extruder number, 0-2]
-// TODO: Check
+
 #if ENABLED(PID_PARAMS_PER_HOTEND)
 // Specify between 1 and HOTENDS values per array.
 // If fewer than EXTRUDER values are provided, the last element will be repeated.
 #define DEFAULT_Kp_LIST \
   {                     \
-    22.20, 22.20        \
+    27.46, 27.46        \
   }
 #define DEFAULT_Ki_LIST \
   {                     \
-    1.08, 1.08          \
+    2.77, 2.77          \
   }
 #define DEFAULT_Kd_LIST \
   {                     \
-    114.00, 114.00      \
+    68.11, 68.11        \
   }
 #else
-// Creality Stock - Ender 3 Max | ran M303 E0 S200 C8
-#define DEFAULT_Kp 27.93
-#define DEFAULT_Ki 2.65
-#define DEFAULT_Kd 73.44
+// Creality Stock - Ender 3 Max | PID calibration command: M303 E0 S200 C8
+#define DEFAULT_Kp 27.46
+#define DEFAULT_Ki 2.77
+#define DEFAULT_Kd 68.11
 #endif
 #endif // PIDTEMP
 
@@ -669,10 +669,10 @@
 // 120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
 // from FOPDT model - kp=.39 Tp=405 Tdead=66, Tc set to 79.2, aggressive factor of .15 (vs .1, 1, 10)
 // Creality Stock - Ender 3 Max
-#define DEFAULT_bedKp 162.06
-#define DEFAULT_bedKi 17.89
-#define DEFAULT_bedKd 978.75
-TODO : Check
+#define DEFAULT_bedKp 146.37
+#define DEFAULT_bedKi 27.93
+#define DEFAULT_bedKd 511.31
+
 // FIND YOUR OWN: "M303 E-1 C8 S90" to run autotune on the bed at 90 degreesC for 8 cycles.
 #endif // PIDTEMPBED
 
@@ -878,8 +878,6 @@ TODO : Check
  *          TMC5130, TMC5130_STANDALONE, TMC5160, TMC5160_STANDALONE
  * :['A4988', 'A5984', 'DRV8825', 'LV8729', 'L6470', 'L6474', 'POWERSTEP01', 'TB6560', 'TB6600', 'TMC2100', 'TMC2130', 'TMC2130_STANDALONE', 'TMC2160', 'TMC2160_STANDALONE', 'TMC2208', 'TMC2208_STANDALONE', 'TMC2209', 'TMC2209_STANDALONE', 'TMC26X', 'TMC26X_STANDALONE', 'TMC2660', 'TMC2660_STANDALONE', 'TMC5130', 'TMC5130_STANDALONE', 'TMC5160', 'TMC5160_STANDALONE']
  */
-
-// TODO: CHECK THE ACTUAL DRIVERS FOR EACH STEPPER ON A GIVEN BOARD
 
 #define X_DRIVER_TYPE TMC2208_STANDALONE
 #define Y_DRIVER_TYPE TMC2208_STANDALONE
@@ -3005,8 +3003,8 @@ TODO : Check
     300             \
   }
 
-       // Only power servos during movement, otherwise leave off to prevent jitter
-       //#define DEACTIVATE_SERVOS_AFTER_MOVE
+// Only power servos during movement, otherwise leave off to prevent jitter
+//#define DEACTIVATE_SERVOS_AFTER_MOVE
 
-       // Edit servo angles with M281 and save to EEPROM with M500
-       //#define EDITABLE_SERVO_ANGLES
+// Edit servo angles with M281 and save to EEPROM with M500
+//#define EDITABLE_SERVO_ANGLES
