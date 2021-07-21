@@ -1,74 +1,107 @@
-# Creality Ender 3 Max - BL Touch Settings
+# Config for Ender 3 Max
 
-I came across an issue after installing BL Touch on my 3D Printer where the Z-axis would be too high. The Z-offset would simply not go low enough. These are the instructions to solve this issue and my startup settings for Cura.
+Personal notes about marlin firmware config, instructions to set the correct z-offset for the BLTouch probe, and Cura start/end commands.
 
 ## Firmware
 
-[Marlin](https://github.com/MarlinFirmware/Marlin) 2.0.9
+[Marlin](https://github.com/MarlinFirmware/Marlin) v2.0.x firmware config for Ender 3 Max + BLTouch.
 
-## Setup
+### After Install
 
-### Manual steps to get the right Z-offset in an Ender 3 Max
+- Tune PID (hotend)
+- Tune PID (bed)
+- Calibrate extruder E-Steps
+- Calibrate Probe Z-Offset
 
-To set the correct Z-offset using Creality's BL Touch on a Creality Ender 3 Max 3D Printer run the following commands and follow the instuctions using tools like [OctoPrint](https://github.com/OctoPrint/OctoPrint) or PrintRun's [pronterface](https://github.com/kliment/Printrun).
+## PID Tuning
 
-#### 1. Home all axes
+### Hotend Calibration
+
+Ensure fan is running at 100%
 
 ```gcode
-G28
+M106 S255
 ```
 
-#### 2. Clear the current Z-offset
+Use `M303` to get PID values
 
 ```gcode
-M851 Z0
+M303 E0 S200 C8 ; M303 <extruder ID> S<temperature in Celsius> C<iterations>
 ```
 
-#### 3. Save and Reload the Changes
+Use the outputs of `M303` and store them using:
+
+#### Store Hotend PID Values
 
 ```gcode
+M301 P27.46 I2.77 D68.11 ; Example values
+M500 ; Save to EEPROM
+```
+
+OR change your firmware if building firmware from scratch:
+
+```gcode
+; Example values
+#define DEFAULT_Kp 27.46
+#define DEFAULT_Ki 2.77
+#define DEFAULT_Kd 68.11
+```
+
+### Bed Calibration
+
+Similar to Hotend calibration with the exception of the ID and the command to store the values in EEPROM.
+
+```gcode
+M303 E-1 S60 C10
+```
+
+#### Store Bed PID Values
+
+```gcode
+M304 P146.37 I27.93 D511.31; Example values
+M500 ; Save to EEPROM
+```
+
+OR change your firmware if building from scratch:
+
+```gcode
+; Example values
+Recv: #define DEFAULT_bedKp 146.37
+Recv: #define DEFAULT_bedKi 27.93
+Recv: #define DEFAULT_bedKd 511.31
+
+```
+
+## Calibrate Bed Levelling Probe (BLTouch) Z-offset
+
+To set the correct Z-offset for the bed levelling probe on a Creality Ender 3 Max 3D Printer run the following commands and follow the instuctions below. For this a tool like [OctoPrint](https://github.com/OctoPrint/OctoPrint) or PrintRun's [Pronterface](https://github.com/kliment/Printrun) is necessary.
+
+```gcode
+G28 ; Home all axes
+M851 Z0 ; Clear Z-offset
+
+M500 ; Save Settings
+M501 ; Reload Settings
+; M503 ; Read Settings
+
+G28 Z0; Home Z-axis to 0
+
+M211 S0 ; Disable Z-axis safety measures to allow negative values
+
+; Position Z-axis to the desired location
+; Lower the Z-axis until it is at the desired position using printer's interface or a tool like OctoPrint or Pronterface.
+; Take note of the `Z-value` (Usually negative).
+
+M851 Z-2 ; -2 is just an example ; Set the Z-offset using the `Z-value` noted above `M851 Z<offset>
+M211 S1 ; Enable Z-axis safety measures
+
 M500 ; Store Settings
 M501 ; Reload Settings
-M503 ; Read Settings
+; M503 ; Read Settings
 ```
 
-#### 4. Home Z-axis to 0
+NOTE on bed-levelling. Homing will disable bed-levelling unless `RESTORE_LEVELING_AFTER_G28` is set in `Configuration.h`. To do this manually `M420 S1` will re-enable it and load the last saved mesh.
 
-```gcode
-G28 Z0
-```
+## Cura
 
-#### 5. Disable Z-axis safety measures to allow negative values
-
-```gcode
-M211 S0
-```
-
-#### 6. Position Z-axis to the desired location
-
-Lower the Z-axis until it is at the desired position using printer's interface or a tool like OctoPrint or Pronterface and a piece of paper.
-Take note of the `Z-value` (Usually negative).
-
-#### 7. Set the Z-offset using the `Z-value` noted above `M851 Z<offset>
-
-```gcode
-M851 Z-2 ; NOTE -2 is an example
-```
-
-#### 8. Enable Z-axis safety measures
-
-```gcode
-M211 S1
-```
-
-#### 9. Save and Reload the Changes
-
-```gcode
-M500 ; Store Settings
-M501 ; Reload Settings
-M503 ; Read Settings
-```
-
-## Homing Disables Bed Levelling
-
-Run `M420 S1` to enable it or `M420 S0` to disable it
+See [start](/src/cura/start.gcode) and [end](/src/cura/start.gcode) scripts.
