@@ -626,10 +626,10 @@
     114.00, 114.00      \
   }
 #else
-// Creality Stock - Ender 3 Max tuned
-#define DEFAULT_Kp 21.39
-#define DEFAULT_Ki 1.56
-#define DEFAULT_Kd 73.30
+// Creality Stock - Ender 3 Max | ran M303 E0 S200 C8
+#define DEFAULT_Kp 27.93
+#define DEFAULT_Ki 2.65
+#define DEFAULT_Kd 73.44
 #endif
 #endif // PIDTEMP
 
