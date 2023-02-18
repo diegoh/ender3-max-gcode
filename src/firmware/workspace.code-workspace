@@ -6,6 +6,9 @@
 	{
 		"name": "marlin",
 		"path": "marlin"
+	},
+	{
+		"path": "../../../../Downloads/Configurations-release-2.1.2/config"
 	}
 ],
   "settings": {}
