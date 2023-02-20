@@ -668,13 +668,13 @@
     #define DEFAULT_Kd_LIST { 114.00, 114.00 }
   #else
     // Creality Stock - Ender 3 Max tuned
-    #define DEFAULT_Kp  21.39
-    #define DEFAULT_Ki   1.56
-    #define DEFAULT_Kd  73.30
+    // #define DEFAULT_Kp  21.39
+    // #define DEFAULT_Ki   1.56
+    // #define DEFAULT_Kd  73.30
     // PID:
-    // #define DEFAULT_Kp  22.20
-    // #define DEFAULT_Ki   1.08
-    // #define DEFAULT_Kd 114.00
+    #define DEFAULT_Kp  22.20
+    #define DEFAULT_Ki   1.08
+    #define DEFAULT_Kd 114.00
   #endif
 #endif
 
@@ -758,13 +758,13 @@
   // 120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   // from FOPDT model - kp=.39 Tp=405 Tdead=66, Tc set to 79.2, aggressive factor of .15 (vs .1, 1, 10)
   // Creality Stock - Ender 3 Max
-  #define DEFAULT_bedKp 162.06
-  #define DEFAULT_bedKi 17.89
-  #define DEFAULT_bedKd 978.75
+  // #define DEFAULT_bedKp 162.06
+  // #define DEFAULT_bedKi 17.89
+  // #define DEFAULT_bedKd 978.75
   // PID:
-  // #define DEFAULT_bedKp 146.37
-  // #define DEFAULT_bedKi 27.93
-  // #define DEFAULT_bedKd 511.31
+  #define DEFAULT_bedKp 146.37
+  #define DEFAULT_bedKi 27.93
+  #define DEFAULT_bedKd 511.31
 
   // FIND YOUR OWN: "M303 E-1 C8 S90" to run autotune on the bed at 90 degreesC for 8 cycles.
 #endif // PIDTEMPBED
@@ -1495,7 +1495,7 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { 10, 10, 0 }
+#define NOZZLE_TO_PROBE_OFFSET { 50, -6, -2 }
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
@@ -1904,7 +1904,7 @@
 #define PREHEAT_BEFORE_LEVELING   // ENABLE FOR BLTOUCH
 #if ENABLED(PREHEAT_BEFORE_LEVELING)
   #define LEVELING_NOZZLE_TEMP 120   // (°C) Only applies to E0 at this time
-  #define LEVELING_BED_TEMP     50
+  #define LEVELING_BED_TEMP     60
 #endif
 
 /**
@@ -1976,7 +1976,7 @@
 
     // Beyond the probed grid, continue the implied tilt?
     // Default is to maintain the height of the nearest edge.
-    #define EXTRAPOLATE_BEYOND_GRID
+    // #define EXTRAPOLATE_BEYOND_GRID
 
     //
     // Experimental Subdivision of the grid by Catmull-Rom method.
@@ -2082,7 +2082,7 @@
 // @section homing
 
 // The center of the bed is at (X=0, Y=0)
-//#define BED_CENTER_AT_0_0
+#define BED_CENTER_AT_150_150
 
 // Manually set the home position. Leave these undefined for automatic settings.
 // For DELTA this is the top-center of the Cartesian print volume.
