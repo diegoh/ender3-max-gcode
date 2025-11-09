@@ -36,6 +36,3 @@ applet/
 *.exe
 *.out
 *.app
-
-
-src/firmware/marlin

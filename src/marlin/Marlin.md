@@ -1,4 +1,4 @@
-# Config for Ender 3 Max
+# Marlin Config for Ender 3 Max
 
 Personal notes about marlin firmware config, instructions to set the correct z-offset for the BLTouch probe, and Cura start/end commands.
 
@@ -101,7 +101,3 @@ M501 ; Reload Settings
 ```
 
 NOTE on bed-levelling. Homing will disable bed-levelling unless `RESTORE_LEVELING_AFTER_G28` is set in `Configuration.h`. To do this manually `M420 S1` will re-enable it and load the last saved mesh.
-
-## Cura
-
-See [start](/src/cura/start.gcode) and [end](/src/cura/start.gcode) scripts.
